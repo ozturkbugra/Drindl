@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Mesajlar";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1>Mesajlar</h1>
+</div><!-- End Page Title -->
+
+<div class="card-body">
+    <h5 class="card-title">Mesaj Listesi</h5>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped datatable">
+            <thead>
+                <tr>
+
+
+                    <th scope="col"></th>
+                    <th scope="col">Ad Soyad</th>
+                    <th scope="col">Mail</th>
+                    <th scope="col">Telefon</th>
+                    <th scope="col">Konu</th>
+                    <th scope="col">Tarih</th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.M)
+                {
+
+                    <tr>
+
+                        @if (item.OkunduMu == "E")
+                        {
+
+                            <td><a href="/Admin/MesajOku/@item.ID">Oku</a></td>
+                            <td>@item.AdSoyad</td>
+                            <td>@item.Mail</td>
+                            <td>@item.Telefon</td>
+                            <td>@item.Konu</td>
+                            <td>@item.Tarih.ToString("dd/MM/yyyy hh:mm")</td>
+                            <td>
+                                <a href="/Admin/MesajSil/@item.ID"
+                                   class="badge bg-danger"
+                                   onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?');">
+                                    Sil
+                                </a> | <a href="/Admin/MesajOkunmadi/@item.ID" class="badge bg-secondary">Okunmadı Olarak İşaretle</a>
+                            </td>
+                        }
+
+
+                        @if (item.OkunduMu == "H")
+                        {
+
+                            <td><a href="/Admin/MesajOku/@item.ID"><b>Oku</b></a></td>
+                            <td><b>@item.AdSoyad</b></td>
+                            <td><b>@item.Mail</b></td>
+                            <td><b>@item.Telefon</b></td>
+                            <td><b>@item.Konu</b></td>
+                            <td><b>@item.Tarih.ToString("dd/MM/yyyy hh:mm")</b></td>
+                            <td>
+                                <a href="/Admin/MesajSil/@item.ID"
+                                   class="badge bg-danger"
+                                   onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?');">
+                                    Sil
+                                </a> | <a href="/Admin/MesajOkundu/@item.ID" class="badge bg-warning">Okundu Olarak İşaretle</a>
+                            </td>
+                        }
+
+
+                       
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+

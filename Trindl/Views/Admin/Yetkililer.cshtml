@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Yetkililer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1>Yetkililer</h1>
+</div><!-- End Page Title -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+    Ekle
+</button>
+
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Yetkili Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="/Admin/YetkiliEkle" method="post">
+
+                <div class="modal-body">
+
+                    <label>Kullanıcı Adı</label>
+
+                    <input type="text" name="KullaniciAdi" maxlength="50" class="form-control" required />
+
+                    <br />
+                    <label>Parola</label>
+
+                    <input type="password" name="Parola" maxlength="100" class="form-control" required />
+
+                   
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- End Vertically centered Modal-->
+<div class="card-body">
+    <h5 class="card-title">Kategori Listesi</h5>
+    <div class="table-responsive">
+        <table class="table table-borderless table-hover table-striped datatable ">
+            <thead>
+                <tr>
+
+
+                    <th scope="col">Kullanıcı Adı</th>
+              
+
+
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Yetkililer)
+                {
+
+                    <tr>
+
+
+                        <td>@item.KullaniciAdi</td>
+                      
+
+
+
+
+                        <td>
+                            <a href="/Admin/YetkiliSil/@item.ID"
+                                                                                                                         class="badge bg-danger"
+                                                                                                                         onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?');">
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

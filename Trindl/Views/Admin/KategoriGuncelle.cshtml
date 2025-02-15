@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Kategori Güncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Kategori Güncelle</h2>
+
+<form action="/Admin/KategoriGuncelle" method="post">
+    <input type="hidden" name="KategoriID" value="@ViewBag.k.KategoriID"/>
+
+
+    <label>Türkçe Kategori Adı</label>
+
+    <input type="text" name="KategoriAdi_tr" maxlength="200" class="form-control" value="@ViewBag.k.KategoriAdi_tr" />
+
+    <br />
+    <label>İngilizce Kategori Adı</label>
+    <input type="text" name="KategoriAdi_en" maxlength="200" class="form-control" value="@ViewBag.k.KategoriAdi_en" />
+    <br />
+    <label>Almanca Kategori Adı</label>
+    <input type="text" name="KategoriAdi_de" maxlength="200" class="form-control" value="@ViewBag.k.KategoriAdi_de" />
+    <br />
+    <button type="submit" class="btn btn-success">Güncelle</button>
+
+</form>

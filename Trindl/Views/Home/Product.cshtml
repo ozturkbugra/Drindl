@@ -1,0 +1,126 @@
+﻿@{
+    int pageSize = 10;
+    int totalPages = ViewBag.TotalPages;
+    int currentPage = ViewBag.CurrentPage;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<main class="main">
+    <section id="portfolio" class="portfolio section">
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            @if (ViewBag.Dil == "tr")
+            {
+                <h2>Ürünlerimiz</h2>
+            }
+            else if (ViewBag.Dil == "en")
+            {
+                <h2>Our Products</h2>
+            }
+            else
+            {
+                <h2>Unsere Produkte</h2>
+            }
+        </div>
+
+        <!-- Portfolio Container -->
+        <div class="container">
+
+
+
+            <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+                <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+                    @if (ViewBag.Dil == "tr")
+                    {
+                        <li data-filter="*" class="filter-active">Tümü</li>
+                        foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <li data-filter=".filter-@item.KategoriID">@item.KategoriAdi_tr</li>
+                        }
+                    }
+                    else if (ViewBag.Dil == "en")
+                    {
+                        <li data-filter="*" class="filter-active">All</li>
+                        foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <li data-filter=".filter-@item.KategoriID">@item.KategoriAdi_en</li>
+                        }
+                    }
+                    else
+                    {
+                        <li data-filter="*" class="filter-active">Alle</li>
+                        foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <li data-filter=".filter-@item.KategoriID">@item.KategoriAdi_de</li>
+                        }
+
+                    }
+
+                </ul><!-- End Portfolio Filters -->
+                <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+                    @foreach (var item in ViewBag.Urunler)
+                    {
+                        <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-@item.KategoriID">
+                            <img src="@item.UrunResim" class="img-fluid" alt="" loading="lazy">
+                            <div class="portfolio-info">
+                                @if (ViewBag.Dil == "tr")
+                                {
+                                    <h4>@item.UrunAdi_tr</h4>
+                                    <p>@item.UrunAciklama_tr</p>
+                                }
+                                else if (ViewBag.Dil == "en")
+                                {
+                                    <h4>@item.UrunAdi_en</h4>
+                                    <p>@item.UrunAciklama_en</p>
+                                }
+                                else
+                                {
+                                    <h4>@item.UrunAdi_de</h4>
+                                    <p>@item.UrunAciklama_de</p>
+                                }
+
+                                <a href="@item.UrunResim" title="@item.UrunAdi_tr" data-gallery="portfolio-gallery-app" class="glightbox preview-link">
+                                    <i class="bi bi-zoom-in"></i>
+                                </a>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <br /><br /><br />
+
+                <!-- Pagination -->
+                <nav aria-label="Page navigation example mt-5">
+                    <ul class="pagination justify-content-center">
+                        @if (currentPage > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Product", new { page = currentPage - 1 })" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+
+                        @for (int i = 1; i <= totalPages; i++)
+                        {
+                            <li class="page-item @(i == currentPage ? "active" : "")">
+                                <a class="page-link" href="@Url.Action("Product", new { page = i })">@i</a>
+                            </li>
+                        }
+
+                        @if (currentPage < totalPages)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="@Url.Action("Product", new { page = currentPage + 1 })" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            </div><!-- End Portfolio Container -->
+            </div>  
+    </section><!-- End Portfolio Section -->
+</main>

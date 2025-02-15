@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "Kategoriler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="pagetitle">
+    <h1>Kategoriler</h1>
+</div><!-- End Page Title -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+    Ekle
+</button>
+
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Kategori Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="/Admin/KategoriEkle" method="post" enctype="multipart/form-data">
+
+                <div class="modal-body">
+
+                    <label>Türkçe Kategori Adı</label>
+
+                    <input type="text" name="KategoriAdi_tr" maxlength="200" class="form-control" required />
+
+
+
+
+                    <br />
+                    <label>İngilizce Kategori Adı</label>
+
+                    <input type="text" name="KategoriAdi_en" maxlength="200" class="form-control" required/>
+
+                    <br />
+                    <label>Almanca Kategori Adı</label>
+
+                    <input type="text" name="KategoriAdi_de" maxlength="200" class="form-control" required/>
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- End Vertically centered Modal-->
+<div class="card-body">
+    <h5 class="card-title">Kategori Listesi</h5>
+    <div class="table-responsive">
+        <table class="table table-borderless table-hover table-striped datatable ">
+            <thead>
+                <tr>
+
+                   
+                    <th scope="col">Türkçe Kategori Adı</th>
+                    <th scope="col">Almanca Kategori Adı</th>
+                    <th scope="col">İngilizce Kategori Adı</th>
+                 
+
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Kategoriler)
+                {
+
+                    <tr>
+
+                        
+                        <td>@item.KategoriAdi_tr</td>
+                        <td>@item.KategoriAdi_de</td>
+                        <td>@item.KategoriAdi_en</td>
+                      
+
+
+
+                        <td>
+                            <a href="/Admin/KategoriGuncelle/@item.KategoriID" class="badge bg-warning">Düzenle</a> | <a href="/Admin/KategoriSil/@item.KategoriID"
+                                                                                                                   class="badge bg-danger"
+                                                                                                                   onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?');">
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

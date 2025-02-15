@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Urun Duzenle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form action="/Admin/UrunDuzenle" method="post">
+
+
+    <input type="hidden" name="UrunID" value="@ViewBag.u.UrunID" />
+    <label>Ürün Resim</label> <br />
+    <img src="@ViewBag.u.UrunResim" class="w-25" />
+    <br /><br />
+    <label>Kategori Seçin</label>
+    <select name="KategoriID" class="form-select">
+        @foreach (var item in ViewBag.Kategoriler)
+        {
+            <option value="@item.KategoriID" @(item.KategoriID == ViewBag.u.KategoriID ? "selected" : "")>@item.KategoriAdi_tr</option>
+        }
+    </select>
+    <br />
+    <label>Öne Çıkarılsın Mı?</label>
+    <select name="OneCikarilsinMi" class="form-select">
+        <option value="E" @(ViewBag.u.OneCikarilsinMi == "E" ? "selected" : "")>Evet</option>
+        <option value="H" @(ViewBag.u.OneCikarilsinMi == "H" ? "selected" : "")>Hayır</option>
+    </select>
+    <br />
+    <label>Türkçe Ürün Başlık</label>
+    <input type="text" name="UrunAdi_tr" maxlength="500" class="form-control" value="@ViewBag.u.UrunAdi_tr" required />
+
+    <br />
+    <label>Almanca Ürün Başlık</label>
+    <input type="text" name="UrunAdi_de" maxlength="500" class="form-control" value="@ViewBag.u.UrunAdi_de" required />
+
+    <br />
+    <label>İngilizce Ürün Başlık</label>
+    <input type="text" name="UrunAdi_en" maxlength="500" class="form-control" value="@ViewBag.u.UrunAdi_en" required />
+
+    <br />
+    <label>Türkçe Ürün Açıklama</label>
+    <input type="text" name="UrunAciklama_tr" maxlength="500" class="form-control" value="@ViewBag.u.UrunAciklama_tr" required />
+
+    <br />
+    <label>Almanca Ürün Açıklama</label>
+    <input type="text" name="UrunAciklama_de" maxlength="500" class="form-control" value="@ViewBag.u.UrunAciklama_de" required />
+
+    <br />
+    <label>İngilizce Ürün Açıklama</label>
+    <input type="text" name="UrunAciklama_en" maxlength="500" class="form-control" value="@ViewBag.u.UrunAciklama_en" required />
+
+
+
+
+    <br />
+
+    <button type="submit" class="btn btn-success">Düzenle</button>
+
+</form>
+

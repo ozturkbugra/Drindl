@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewBag.Title = "Mesaj Oku";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Mesaj Oku | <a href="/Admin/Mesajlar"> Geri Dön</a></h2> 
+
+<br />
+
+
+<h4>Ad Soyad:</h4>
+<h5>@ViewBag.m.AdSoyad</h5>
+<br />
+<h4>Mail:</h4>
+<h5>@ViewBag.m.Mail</h5>
+<br />
+<h4>Telefon:</h4>
+<h5>@ViewBag.m.Telefon</h5>
+<br />
+<h4>Konu:</h4>
+<h5>@ViewBag.m.Konu</h5>
+<br />
+<h4>Mesaj:</h4>
+<h5>@ViewBag.m.Mesaj</h5>
+<br />
+<h4>Tarih:</h4>
+<h5>@ViewBag.m.Tarih.ToString("dd/MM/yyy hh:mm")</h5>
+
+
+
+    

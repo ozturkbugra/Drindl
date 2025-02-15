@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Sabit Bilgiler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Sabit Bilgiler</h2>
+
+<br />
+
+<form action="/Admin/SabitBilgiler" method="post">
+    <input type="hidden" name="SabitID" value="@ViewBag.s.SabitID" />
+    <div class="form-group">
+        <label>Türkçe Sayfa Başlığı</label>
+        <input type="text" name="Baslik_tr" class="form-control" value="@ViewBag.s.Baslik_tr" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>İngilizce Sayfa Başlığı</label>
+        <input type="text" name="Baslik_en" class="form-control" value="@ViewBag.s.Baslik_en" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Almanca Sayfa Başlığı</label>
+        <input type="text" name="Baslik_de" class="form-control" value="@ViewBag.s.Baslik_de" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Türkçe Değişen Yazı</label>
+        <input type="text" name="DegisenYazi_tr" class="form-control" value="@ViewBag.s.DegisenYazi_tr" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>İngilizce Değişen Yazı</label>
+        <input type="text" name="DegisenYazi_en" class="form-control" value="@ViewBag.s.DegisenYazi_en" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Almanca Değişen Yazı</label>
+        <input type="text" name="DegisenYazi_de" class="form-control" value="@ViewBag.s.DegisenYazi_de" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>İnstagram Linki</label>
+        <input type="text" name="Instagram" class="form-control" value="@ViewBag.s.Instagram" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Facebook Linki</label>
+        <input type="text" name="Facebook" class="form-control" value="@ViewBag.s.Facebook" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Youtube Kanal Linki</label>
+        <input type="text" name="Youtube" class="form-control" value="@ViewBag.s.Youtube" maxlength="200" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Video Linki</label>
+        <input type="text" name="VideoLink" class="form-control" value="@ViewBag.s.VideoLink" maxlength="250" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Adres</label>
+        <input type="text" name="Adres" class="form-control" value="@ViewBag.s.Adres" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Telefon Türkiye</label>
+        <input type="text" name="Telefon_tr" class="form-control" value="@ViewBag.s.Telefon_tr" maxlength="50" />
+    </div>
+    <div class="form-group mt-3">
+        <label>Telefon Almanya</label>
+        <input type="text" name="Telefon_de" class="form-control" value="@ViewBag.s.Telefon_de" maxlength="50" />
+    </div>
+    <div class="form-group mt-3">
+        <label>
+            Whatsapp Numarası (Düzgün Çalışması için aşağıdaki formatlarda olmalıdır)
+            <br /> Almanya Telefon: 4915123456789
+            <br /> Türkiye Telefon: 905312345678
+        </label>
+        <input type="text" name="Whatsapp" class="form-control" value="@ViewBag.s.Whatsapp" maxlength="50" />
+    </div>
+
+    <div class="form-group mt-3">
+        <button type="submit" class="btn btn-success">Güncelle</button>
+    </div>
+</form>
+
+
+
+      
+    
+    
+     

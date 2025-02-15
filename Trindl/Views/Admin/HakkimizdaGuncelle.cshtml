@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Hakkimizda Guncelle";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h2>Hakkımızda Güncelle</h2>
+
+<label>Eski Resim (Eğer yeni resim yüklemezseniz eski resim kalacaktır)</label> <br />
+<img src="@ViewBag.h.Resim" class="w-25" />
+
+<br /><br />
+
+<form action="/Admin/HakkimizdaGuncelle" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="ID" value="@ViewBag.h.ID" />
+    <label>Resim (Tasarımın bozulmaması için yüklediğiniz tüm resimler aynı boyutta olmalıdır örnek 600x600 pixel)</label>
+    <input type="file" name="Resim" id="Resim" class="form-control" />
+
+    <br />
+    <label>Türkçe Açıklama</label>
+
+    <textarea id="Aciklama_tr" class="alan" name="Aciklama_tr" required> @ViewBag.h.Aciklama_tr </textarea>
+
+    <br />
+    <label>İngilizce Açıklama</label>
+    <textarea id="Aciklama_en" class="alan" name="Aciklama_en" required>  @ViewBag.h.Aciklama_en</textarea>
+
+    <br />
+    <label>Almanca Açıklama</label>
+    <textarea id="Aciklama_de" class="alan" name="Aciklama_de" required>  @ViewBag.h.Aciklama_de</textarea>
+
+    <br />
+    <button type="submit" class="btn btn-success">Güncelle</button>
+
+</form>
+
+
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
+
+
+<script>
+    $('.alan').summernote({
+        tabsize: 4,
+        height: 100,
+
+    });
+</script>
+

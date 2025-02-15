@@ -1,0 +1,138 @@
+﻿
+@{
+    ViewBag.Title = "Ürünler";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="pagetitle">
+    <h1>Ürünler</h1>
+</div><!-- End Page Title -->
+<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#verticalycentered">
+    Ekle
+</button>
+
+<div class="modal fade" id="verticalycentered" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Ürün Ekle</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="/Admin/UrunEkle" method="post" enctype="multipart/form-data">
+
+                <div class="modal-body">
+
+                    <label>Ürün Resim</label>
+
+                    <input type="file" name="UrunResim" class="form-control" required />
+                    <br />
+                    <label>Kategori Seçin</label>
+                    <select name="KategoriID" class="form-select">
+                        @foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <option value="@item.KategoriID">@item.KategoriAdi_tr</option>
+                        }
+                    </select>
+
+                    <br />
+                    <label>Öne Çıkarılsın Mı</label>
+                    <select name="OneCikarilsinMi" class="form-select">
+                        <option value="E">Evet</option>
+                        <option value="H">Hayır</option>
+                    </select>
+
+                    <br />
+                    <label>Türkçe Ürün Başlık</label>
+                    <input type="text" name="UrunAdi_tr" maxlength="500" class="form-control" required />
+
+                    <br />
+                    <label>Almanca Ürün Başlık</label>
+                    <input type="text" name="UrunAdi_de" maxlength="500" class="form-control" required />
+
+                    <br />
+                    <label>İngilizce Ürün Başlık</label>
+                    <input type="text" name="UrunAdi_en" maxlength="500" class="form-control" required />
+
+                    <br />
+                    <label>Türkçe Ürün Açıklama</label>
+                    <input type="text" name="UrunAciklama_tr" maxlength="500" class="form-control" required />
+
+                    <br />
+                    <label>Almanca Ürün Açıklama</label>
+                    <input type="text" name="UrunAciklama_de" maxlength="500" class="form-control" required />
+
+                    <br />
+                    <label>İngilizce Ürün Açıklama</label>
+                    <input type="text" name="UrunAciklama_en" maxlength="500" class="form-control" required />
+
+                  
+                   
+
+                </div>
+                <div class="modal-footer">
+
+                    <button type="submit" class="btn btn-success">Ekle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div><!-- End Vertically centered Modal-->
+<div class="card-body">
+    <h5 class="card-title">Ürün Listesi</h5>
+    <div class="table-responsive">
+        <table class="table table-borderless table-striped table-hover datatable">
+            <thead>
+                <tr>
+
+
+                    <th scope="col">Resim</th>
+                    <th scope="col">Ürün Başlık</th>
+                    <th scope="col">Ürün Açıklama</th>
+                    <th scope="col">Kategori Adı</th>
+                    <th scope="col">Öne Çıkarıldı Mı</th>
+
+
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Urunler)
+                {
+
+                    <tr>
+
+
+                        <td><img src="@item.UrunResim" class="w-25" /></td>
+                        <td>@item.UrunAdi_tr</td>
+                        <td>@item.UrunAciklama_tr</td>
+                        <td>@item.KategoriAdi_tr</td>
+                        @if (item.OneCikarilsinMi == "H")
+                        {
+                            <td>Hayır</td>
+                        }@if (item.OneCikarilsinMi == "E")
+                        {
+                            <td>Evet</td>
+                        }
+
+
+
+
+                        <td>
+                            <a href="/Admin/UrunDuzenle/@item.UrunID" class="badge bg-warning">Düzenle</a>
+                            <a href="/Admin/UrunSil/@item.UrunID"
+                               class="badge bg-danger"
+                               onclick="return confirm('Bu kaydı silmek istediğinizden emin misiniz?');">
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+
+                }
+
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

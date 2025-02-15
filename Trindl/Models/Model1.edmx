@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DrindlModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adminler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="nvarchar" MaxLength="50" />
+          <Property Name="Parola" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Hakkimizda">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Resim" Type="nvarchar" MaxLength="200" />
+          <Property Name="Aciklama_tr" Type="nvarchar(max)" />
+          <Property Name="Aciklama_en" Type="nvarchar(max)" />
+          <Property Name="Aciklama_de" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdi_tr" Type="nvarchar" MaxLength="200" />
+          <Property Name="KategoriAdi_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="KategoriAdi_de" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Mesajlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AdSoyad" Type="nvarchar" MaxLength="300" />
+          <Property Name="Mail" Type="nvarchar" MaxLength="300" />
+          <Property Name="Telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="Konu" Type="nvarchar" MaxLength="250" />
+          <Property Name="Mesaj" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Tarih" Type="datetime" />
+          <Property Name="OkunduMu" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="Sabitler">
+          <Key>
+            <PropertyRef Name="SabitID" />
+          </Key>
+          <Property Name="SabitID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Baslik_tr" Type="nvarchar" MaxLength="200" />
+          <Property Name="Baslik_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="Baslik_de" Type="nvarchar" MaxLength="200" />
+          <Property Name="DegisenYazi_tr" Type="nvarchar" MaxLength="200" />
+          <Property Name="DegisenYazi_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="DegisenYazi_de" Type="nvarchar" MaxLength="200" />
+          <Property Name="Instagram" Type="nvarchar" MaxLength="200" />
+          <Property Name="Facebook" Type="nvarchar" MaxLength="200" />
+          <Property Name="Youtube" Type="nvarchar" MaxLength="200" />
+          <Property Name="VideoLink" Type="nvarchar" MaxLength="250" />
+          <Property Name="Adres" Type="nvarchar(max)" />
+          <Property Name="Telefon_tr" Type="nvarchar" MaxLength="50" />
+          <Property Name="Telefon_de" Type="nvarchar" MaxLength="50" />
+          <Property Name="Whatsapp" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UrunAdi_tr" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAdi_en" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAdi_de" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAciklama_tr" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAciklama_en" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAciklama_de" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunResim" Type="nvarchar" MaxLength="500" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="OneCikarilsinMi" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Drindl.dbo.UrunlerView' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UrunlerView">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="int" Nullable="false" />
+          <Property Name="UrunAdi_tr" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAdi_en" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAdi_de" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAciklama_tr" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAciklama_en" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunAciklama_de" Type="nvarchar" MaxLength="500" />
+          <Property Name="UrunResim" Type="nvarchar" MaxLength="500" />
+          <Property Name="KategoriID" Type="int" />
+          <Property Name="KategoriAdi_tr" Type="nvarchar" MaxLength="200" />
+          <Property Name="KategoriAdi_en" Type="nvarchar" MaxLength="200" />
+          <Property Name="KategoriAdi_de" Type="nvarchar" MaxLength="200" />
+          <Property Name="OneCikarilsinMi" Type="nvarchar" MaxLength="1" />
+        </EntityType>
+        <EntityContainer Name="DrindlModelStoreContainer">
+          <EntitySet Name="Adminler" EntityType="Self.Adminler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hakkimizda" EntityType="Self.Hakkimizda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategoriler" EntityType="Self.Kategoriler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Mesajlar" EntityType="Self.Mesajlar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Sabitler" EntityType="Self.Sabitler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Urunler" EntityType="Self.Urunler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UrunlerView" EntityType="Self.UrunlerView" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UrunlerView].[UrunID] AS [UrunID], 
+    [UrunlerView].[UrunAdi_tr] AS [UrunAdi_tr], 
+    [UrunlerView].[UrunAdi_en] AS [UrunAdi_en], 
+    [UrunlerView].[UrunAdi_de] AS [UrunAdi_de], 
+    [UrunlerView].[UrunAciklama_tr] AS [UrunAciklama_tr], 
+    [UrunlerView].[UrunAciklama_en] AS [UrunAciklama_en], 
+    [UrunlerView].[UrunAciklama_de] AS [UrunAciklama_de], 
+    [UrunlerView].[UrunResim] AS [UrunResim], 
+    [UrunlerView].[KategoriID] AS [KategoriID], 
+    [UrunlerView].[KategoriAdi_tr] AS [KategoriAdi_tr], 
+    [UrunlerView].[KategoriAdi_en] AS [KategoriAdi_en], 
+    [UrunlerView].[KategoriAdi_de] AS [KategoriAdi_de], 
+    [UrunlerView].[OneCikarilsinMi] AS [OneCikarilsinMi]
+    FROM [dbo].[UrunlerView] AS [UrunlerView]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DrindlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DrindlEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adminlers" EntityType="DrindlModel.Adminler" />
+          <EntitySet Name="Hakkimizdas" EntityType="DrindlModel.Hakkimizda" />
+          <EntitySet Name="Kategorilers" EntityType="DrindlModel.Kategoriler" />
+          <EntitySet Name="Mesajlars" EntityType="DrindlModel.Mesajlar" />
+          <EntitySet Name="Sabitlers" EntityType="DrindlModel.Sabitler" />
+          <EntitySet Name="Urunlers" EntityType="DrindlModel.Urunler" />
+          <EntitySet Name="UrunlerViews" EntityType="DrindlModel.UrunlerView" />
+        </EntityContainer>
+        <EntityType Name="Adminler">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Parola" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Hakkimizda">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Resim" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama_tr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama_en" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Aciklama_de" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Kategoriler">
+          <Key>
+            <PropertyRef Name="KategoriID" />
+          </Key>
+          <Property Name="KategoriID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdi_tr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KategoriAdi_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KategoriAdi_de" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Mesajlar">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AdSoyad" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Mail" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Konu" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Mesaj" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Tarih" Type="DateTime" Precision="3" />
+          <Property Name="OkunduMu" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Sabitler">
+          <Key>
+            <PropertyRef Name="SabitID" />
+          </Key>
+          <Property Name="SabitID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Baslik_tr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Baslik_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Baslik_de" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DegisenYazi_tr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DegisenYazi_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="DegisenYazi_de" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Instagram" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Facebook" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Youtube" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="VideoLink" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon_tr" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Telefon_de" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Whatsapp" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Urunler">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UrunAdi_tr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAdi_en" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAdi_de" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama_tr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama_en" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama_de" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunResim" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="OneCikarilsinMi" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="UrunlerView">
+          <Key>
+            <PropertyRef Name="UrunID" />
+          </Key>
+          <Property Name="UrunID" Type="Int32" Nullable="false" />
+          <Property Name="UrunAdi_tr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAdi_en" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAdi_de" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama_tr" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama_en" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunAciklama_de" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="UrunResim" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="KategoriID" Type="Int32" />
+          <Property Name="KategoriAdi_tr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KategoriAdi_en" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="KategoriAdi_de" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="OneCikarilsinMi" Type="String" MaxLength="1" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DrindlModelStoreContainer" CdmEntityContainer="DrindlEntities">
+          <EntitySetMapping Name="Adminlers">
+            <EntityTypeMapping TypeName="DrindlModel.Adminler">
+              <MappingFragment StoreEntitySet="Adminler">
+                <ScalarProperty Name="Parola" ColumnName="Parola" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Hakkimizdas">
+            <EntityTypeMapping TypeName="DrindlModel.Hakkimizda">
+              <MappingFragment StoreEntitySet="Hakkimizda">
+                <ScalarProperty Name="Aciklama_de" ColumnName="Aciklama_de" />
+                <ScalarProperty Name="Aciklama_en" ColumnName="Aciklama_en" />
+                <ScalarProperty Name="Aciklama_tr" ColumnName="Aciklama_tr" />
+                <ScalarProperty Name="Resim" ColumnName="Resim" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategorilers">
+            <EntityTypeMapping TypeName="DrindlModel.Kategoriler">
+              <MappingFragment StoreEntitySet="Kategoriler">
+                <ScalarProperty Name="KategoriAdi_de" ColumnName="KategoriAdi_de" />
+                <ScalarProperty Name="KategoriAdi_en" ColumnName="KategoriAdi_en" />
+                <ScalarProperty Name="KategoriAdi_tr" ColumnName="KategoriAdi_tr" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Mesajlars">
+            <EntityTypeMapping TypeName="DrindlModel.Mesajlar">
+              <MappingFragment StoreEntitySet="Mesajlar">
+                <ScalarProperty Name="OkunduMu" ColumnName="OkunduMu" />
+                <ScalarProperty Name="Tarih" ColumnName="Tarih" />
+                <ScalarProperty Name="Mesaj" ColumnName="Mesaj" />
+                <ScalarProperty Name="Konu" ColumnName="Konu" />
+                <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="AdSoyad" ColumnName="AdSoyad" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sabitlers">
+            <EntityTypeMapping TypeName="DrindlModel.Sabitler">
+              <MappingFragment StoreEntitySet="Sabitler">
+                <ScalarProperty Name="Whatsapp" ColumnName="Whatsapp" />
+                <ScalarProperty Name="Telefon_de" ColumnName="Telefon_de" />
+                <ScalarProperty Name="Telefon_tr" ColumnName="Telefon_tr" />
+                <ScalarProperty Name="Adres" ColumnName="Adres" />
+                <ScalarProperty Name="VideoLink" ColumnName="VideoLink" />
+                <ScalarProperty Name="Youtube" ColumnName="Youtube" />
+                <ScalarProperty Name="Facebook" ColumnName="Facebook" />
+                <ScalarProperty Name="Instagram" ColumnName="Instagram" />
+                <ScalarProperty Name="DegisenYazi_de" ColumnName="DegisenYazi_de" />
+                <ScalarProperty Name="DegisenYazi_en" ColumnName="DegisenYazi_en" />
+                <ScalarProperty Name="DegisenYazi_tr" ColumnName="DegisenYazi_tr" />
+                <ScalarProperty Name="Baslik_de" ColumnName="Baslik_de" />
+                <ScalarProperty Name="Baslik_en" ColumnName="Baslik_en" />
+                <ScalarProperty Name="Baslik_tr" ColumnName="Baslik_tr" />
+                <ScalarProperty Name="SabitID" ColumnName="SabitID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Urunlers">
+            <EntityTypeMapping TypeName="DrindlModel.Urunler">
+              <MappingFragment StoreEntitySet="Urunler">
+                <ScalarProperty Name="OneCikarilsinMi" ColumnName="OneCikarilsinMi" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="UrunResim" ColumnName="UrunResim" />
+                <ScalarProperty Name="UrunAciklama_de" ColumnName="UrunAciklama_de" />
+                <ScalarProperty Name="UrunAciklama_en" ColumnName="UrunAciklama_en" />
+                <ScalarProperty Name="UrunAciklama_tr" ColumnName="UrunAciklama_tr" />
+                <ScalarProperty Name="UrunAdi_de" ColumnName="UrunAdi_de" />
+                <ScalarProperty Name="UrunAdi_en" ColumnName="UrunAdi_en" />
+                <ScalarProperty Name="UrunAdi_tr" ColumnName="UrunAdi_tr" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UrunlerViews">
+            <EntityTypeMapping TypeName="DrindlModel.UrunlerView">
+              <MappingFragment StoreEntitySet="UrunlerView">
+                <ScalarProperty Name="OneCikarilsinMi" ColumnName="OneCikarilsinMi" />
+                <ScalarProperty Name="KategoriAdi_de" ColumnName="KategoriAdi_de" />
+                <ScalarProperty Name="KategoriAdi_en" ColumnName="KategoriAdi_en" />
+                <ScalarProperty Name="KategoriAdi_tr" ColumnName="KategoriAdi_tr" />
+                <ScalarProperty Name="KategoriID" ColumnName="KategoriID" />
+                <ScalarProperty Name="UrunResim" ColumnName="UrunResim" />
+                <ScalarProperty Name="UrunAciklama_de" ColumnName="UrunAciklama_de" />
+                <ScalarProperty Name="UrunAciklama_en" ColumnName="UrunAciklama_en" />
+                <ScalarProperty Name="UrunAciklama_tr" ColumnName="UrunAciklama_tr" />
+                <ScalarProperty Name="UrunAdi_de" ColumnName="UrunAdi_de" />
+                <ScalarProperty Name="UrunAdi_en" ColumnName="UrunAdi_en" />
+                <ScalarProperty Name="UrunAdi_tr" ColumnName="UrunAdi_tr" />
+                <ScalarProperty Name="UrunID" ColumnName="UrunID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

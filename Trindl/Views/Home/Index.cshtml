@@ -1,0 +1,772 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+@{
+    string dil = "de"; // Varsayılan dil
+
+
+    // Çerezden dil bilgisini al ve kontrol et
+    if (Request.Cookies["D"] != null && !string.IsNullOrEmpty(Request.Cookies["D"]["Dil"]))
+    {
+        dil = Request.Cookies["D"]["Dil"];
+    }
+
+
+}
+
+<main class="main">
+
+    <!-- Hero Section -->
+    <section id="hero" class="hero section light-background">
+
+        <img src="~/Content/site/assets/img/hero-bg.jpg" alt="">
+
+       
+        <div class="container" data-aos="zoom-out">
+
+            <div class="row justify-content-center">
+                <div class="col-lg-9">
+
+
+                    <h2>@ViewBag.Baslik</h2>
+                    <p><span class="typed" data-typed-items="@ViewBag.DegisenYazi"></span><span class="typed-cursor typed-cursor--blink" aria-hidden="true"></span></p>
+                    <div class="social-links">
+                        <a href="@ViewBag.Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="@ViewBag.Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="@ViewBag.Youtube"><i class="bi bi-youtube"></i></a>
+
+
+                    </div>
+                    <br />
+                    <a href="#" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#videoModal" data-video-url="@ViewBag.Link">
+                        <i class="bi bi-play" style="font-size:25px; vertical-align: middle;"></i> Video
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <script src="https://www.youtube.com/iframe_api"></script>
+        <!-- Video Modal -->
+        <div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="videoModalLabel">Video</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <!-- Video oynatıcı burada yer alacak -->
+                        <div id="videoPlayerContainer">
+                            <iframe id="videoPlayer" width="100%" height="400" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bootstrap JS ve jQuery Script'lerini ekleyin -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>
+
+        <!-- JavaScript ile Video URL'sini Dinamik Olarak Alma ve Yerleştirme -->
+        <script>
+            var videoModal = document.getElementById('videoModal');
+            videoModal.addEventListener('shown.bs.modal', function (event) {
+                // Modal tıklandığında, data-video-url'den video URL'sini al
+                var videoUrl = event.relatedTarget.getAttribute('data-video-url');
+
+                // URL'den sadece video ID'sini çıkar (https://www.youtube.com/watch?v=videoID şeklinde)
+                var videoId = new URL(videoUrl).searchParams.get('v');
+
+                // iframe içine video ID'sini yerleştir
+                var videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1"; // autoplay=1 video hemen başlar
+            });
+
+            // Modal kapanınca video durdurulacak (iframe src sıfırlanacak)
+            videoModal.addEventListener('hidden.bs.modal', function () {
+                var videoPlayer = document.getElementById('videoPlayer');
+                videoPlayer.src = ''; // Videoyu durdur
+            });
+        </script>
+
+    </section><!-- /Hero Section -->
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            @if (dil == "tr")
+            {
+                <h2>Hakkımızda</h2>
+            }
+            else if (dil == "en")
+            {
+                <h2>About</h2>
+            }
+            else
+            {
+                <h2> Über mich</h2>
+
+            }
+
+
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+            <div class="row gy-4 justify-content-center">
+
+                @if (dil == "tr")
+                {
+                    foreach (var item in ViewBag.Hakkimizda)
+                    {
+                        <div class="col-lg-4">
+                            <img src="@item.Resim" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-lg-8 content">
+
+                            <p class="fst-italic py-3">
+                                @Html.Raw(item.Aciklama_tr)
+                            </p>
+
+                        </div>
+
+                    }
+                }
+                else if (dil == "en")
+                {
+                    foreach (var item in ViewBag.Hakkimizda)
+                    {
+                        <div class="col-lg-4">
+                            <img src="@item.Resim" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-lg-8 content">
+
+                            <p class="fst-italic py-3">
+                                @Html.Raw(item.Aciklama_en)
+                            </p>
+
+                        </div>
+
+                    }
+                }
+                else
+                {
+                    foreach (var item in ViewBag.Hakkimizda)
+                    {
+                        <div class="col-lg-4">
+                            <img src="@item.Resim" class="img-fluid" alt="">
+                        </div>
+                        <div class="col-lg-8 content">
+
+                            <p class="fst-italic py-3">
+                                @Html.Raw(item.Aciklama_de)
+                            </p>
+
+                        </div>
+
+                    }
+
+                }
+
+
+
+            </div>
+
+
+        </div>
+
+    </section><!-- /About Section -->
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+
+            @if (dil == "tr")
+            {
+                <h2>Ürünlerimiz</h2>
+            }
+            else if (dil == "en")
+            {
+                <h2>Our products</h2>
+            }
+            else
+            {
+                <h2>
+                    Unsere Produkte
+                </h2>
+
+            }
+        </div><!-- End Section Title -->
+
+        <div class="container">
+
+            <div class="isotope-layout" data-default-filter="*" data-layout="masonry" data-sort="original-order">
+
+                <ul class="portfolio-filters isotope-filters" data-aos="fade-up" data-aos-delay="100">
+                    @if (dil == "tr")
+                    {
+                        <li data-filter="*" class="filter-active">Tümü</li>
+                        foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <li data-filter=".filter-@item.KategoriID">@item.KategoriAdi_tr</li>
+                        }
+                    }
+                    else if (dil == "en")
+                    {
+                        <li data-filter="*" class="filter-active">All</li>
+                        foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <li data-filter=".filter-@item.KategoriID">@item.KategoriAdi_en</li>
+                        }
+                    }
+                    else
+                    {
+                        <li data-filter="*" class="filter-active">Alle</li>
+                        foreach (var item in ViewBag.Kategoriler)
+                        {
+                            <li data-filter=".filter-@item.KategoriID">@item.KategoriAdi_de</li>
+                        }
+
+                    }
+
+                </ul><!-- End Portfolio Filters -->
+
+                <div class="row gy-4 isotope-container" data-aos="fade-up" data-aos-delay="200">
+
+                    @if (dil == "tr")
+                    {
+                        foreach (var item in ViewBag.Urunler)
+                        {
+                            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-@item.KategoriID">
+                                <img src="@item.UrunResim" class="img-fluid" alt="" loading="lazy">
+                                <div class="portfolio-info">
+                                    <h4>@item.UrunAdi_tr</h4>
+                                    <p>@item.UrunAciklama_tr</p>
+                                    <a href="@item.UrunResim" title="@item.UrunAdi_tr" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                </div>
+                            </div><!-- End Portfolio Item -->
+                        }
+                    }
+                    else if (dil == "en")
+                    {
+                        foreach (var item in ViewBag.Urunler)
+                        {
+                            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-@item.KategoriID">
+                                <img src="@item.UrunResim" class="img-fluid" alt="" loading="lazy">
+                                <div class="portfolio-info">
+                                    <h4>@item.UrunAdi_en</h4>
+                                    <p>@item.UrunAciklama_en</p>
+                                    <a href="@item.UrunResim" title="@item.UrunAdi_en" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                </div>
+                            </div><!-- End Portfolio Item -->
+                        }
+                    }
+                    else
+                    {
+
+                        foreach (var item in ViewBag.Urunler)
+                        {
+                            <div class="col-lg-4 col-md-6 portfolio-item isotope-item filter-@item.KategoriID">
+                                <img src="@item.UrunResim" class="img-fluid" alt="" loading="lazy">
+                                <div class="portfolio-info">
+                                    <h4>@item.UrunAdi_de</h4>
+                                    <p>@item.UrunAciklama_de</p>
+                                    <a href="@item.UrunResim" title="@item.UrunAdi_de" data-gallery="portfolio-gallery-app" class="glightbox preview-link"><i class="bi bi-zoom-in"></i></a>
+                                </div>
+                            </div><!-- End Portfolio Item -->
+                        }
+                    }
+
+
+
+
+
+                </div><!-- End Portfolio Container -->
+
+            </div>
+            <br />
+            <div align="center">
+                @if (dil == "tr")
+                {
+                    <a href="/Home/Product">Tümünü Gör</a>
+
+                }
+                else if (dil == "en")
+                {
+
+
+                    <a href="/Home/Product">See All</a>
+
+                }
+                else
+                {
+            <a href="/Home/Product">
+                Alles Sehen
+            </a>
+
+                }
+            </div>
+        </div>
+
+    </section><!-- /Portfolio Section -->
+    <!-- Services Section -->
+    <section id="services" class="services section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+
+            @if (dil == "tr")
+            {
+                <h2>
+                    Toptan Satış ve Özel Çözümler
+                </h2>
+            }
+            else if (dil == "en")
+            {
+                <h2>
+                    Wholesale and Custom Solutions
+
+                </h2>
+            }
+            else
+            {
+                <h2>
+                    Großhandel und Individuelle Lösungen
+
+
+
+
+
+
+
+                </h2>
+
+            }
+        </div><!-- End Section Title -->
+
+        <div class="container">
+
+            <div class="row gy-4">
+                @if (dil == "tr")
+                {
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="service-item item-cyan position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/color-glass/48/b2b.png" alt="b2b" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>B2B SATIŞ</h3>
+                                </a>
+                                <p>Toptancılara özel indirimli fiyatlar.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="service-item item-orange position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/color/48/truck--v1.png" alt="truck--v1" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>Hızlı Teslimat</h3>
+                                </a>
+                                <p>Almanya ve Avrupa'nın dört bir yanına hızlı gönderim.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="service-item item-teal position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/plasticine/100/box--v1.png" alt="box--v1" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>Özel Sipariş</h3>
+                                </a>
+                                <p>Mağazalara veya organizasyonlara özeltasarım seçenekleri.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                            <div class="service-item item-red position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/external-parzival-1997-outline-color-parzival-1997/64/external-e-commerce-shopstreaming-parzival-1997-outline-color-parzival-1997.png" alt="external-e-commerce-shopstreaming-parzival-1997-outline-color-parzival-1997" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>E-ticaret Desteği</h3>
+                                </a>
+                                <p>Amazon, eBay ve satış desteği.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+                    </div>
+                }
+                else if (dil == "en")
+                {
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="service-item item-cyan position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/color-glass/48/b2b.png" alt="b2b" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>B2B SALES</h3>
+                                </a>
+                                <p>Exclusive discounted prices for wholesalers.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="service-item item-orange position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/color/48/truck--v1.png" alt="truck--v1" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>Fast Delivery</h3>
+                                </a>
+                                <p>Quick shipping across Germany and Europe.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="service-item item-teal position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/plasticine/100/box--v1.png" alt="box--v1" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>Custom Orders</h3>
+                                </a>
+                                <p>Special design options for stores or events.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                            <div class="service-item item-red position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/external-parzival-1997-outline-color-parzival-1997/64/external-e-commerce-shopstreaming-parzival-1997-outline-color-parzival-1997.png" alt="external-e-commerce-shopstreaming-parzival-1997-outline-color-parzival-1997" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>E-commerce Support</h3>
+                                </a>
+                                <p>Support for selling on Amazon, eBay, and more.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+                    </div>
+
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="100">
+                            <div class="service-item item-cyan position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/color-glass/48/b2b.png" alt="b2b" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>B2B VERKAUF</h3>
+                                </a>
+                                <p>Exklusive Rabatte für Großhändler.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="200">
+                            <div class="service-item item-orange position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/color/48/truck--v1.png" alt="truck--v1" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>Schnelle Lieferung</h3>
+                                </a>
+                                <p>Schneller Versand in ganz Deutschland und Europa.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="300">
+                            <div class="service-item item-teal position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/plasticine/100/box--v1.png" alt="box--v1" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>Sonderbestellungen</h3>
+                                </a>
+                                <p>Individuelle Designs für Geschäfte oder Veranstaltungen.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+
+                        <div class="col-lg-3 col-md-6 col-sm-6 mb-4" data-aos="fade-up" data-aos-delay="400">
+                            <div class="service-item item-red position-relative">
+                                <div class="icon">
+                                    <img width="48" height="48" src="https://img.icons8.com/external-parzival-1997-outline-color-parzival-1997/64/external-e-commerce-shopstreaming-parzival-1997-outline-color-parzival-1997.png" alt="external-e-commerce-shopstreaming-parzival-1997-outline-color-parzival-1997" />
+                                </div>
+                                <a href="#" class="stretched-link">
+                                    <h3>E-Commerce Unterstützung</h3>
+                                </a>
+                                <p>Verkaufshilfe für Amazon, eBay und mehr.</p>
+                            </div>
+                        </div><!-- End Service Item -->
+                    </div>
+
+
+                }
+
+
+
+
+
+
+            </div>
+
+        </div>
+
+    </section><!-- /Services Section -->
+ 
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+
+        <!-- Section Title -->
+        <div class="container section-title" data-aos="fade-up">
+            @if (dil == "tr")
+            {
+                <h2>
+                    İletişim
+                </h2>
+            }
+            else if (dil == "en")
+            {
+                <h2>
+                    Contact
+                </h2>
+            }
+            else
+            {
+        <h2>
+
+            Kontakt
+        </h2>
+
+            }
+        </div><!-- End Section Title -->
+
+        <div class="container" data-aos="fade" data-aos-delay="100">
+
+            <div class="row gy-4">
+
+                <div class="col-lg-4">
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <i class="bi bi-geo-alt flex-shrink-0"></i>
+                        <div>
+                            @if (dil == "tr")
+                            {
+                                <h3>
+                                    Adres
+                                </h3>
+                            }
+                            else if (dil == "en")
+                            {
+                                <h3>
+                                    Address
+                                </h3>
+                            }
+                            else
+                            {
+                                <h3>
+                                    Adresse
+
+                                </h3>
+
+                            }
+
+                            <p>@ViewBag.Adres</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <i class="bi bi-telephone flex-shrink-0"></i>
+                        <div>
+                            @if (dil == "tr")
+                            {
+                                <h3>
+                                    Telefon
+                                </h3>
+                            }
+                            else if (dil == "en")
+                            {
+                                <h3>
+                                    Telephone
+                                </h3>
+                            }
+                            else
+                            {
+                                <h3>
+                                    Telefon
+
+                                </h3>
+
+                            }
+                        <p>
+                            FOR GERMAN <br />
+                            @ViewBag.TelefonDE
+                            <br /> <br />
+                            FOR TURKISH, ENGLISH, FRENCH AND ARABIC  <br />
+                            @ViewBag.TelefonTR
+                        </p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                    <div class="info-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <i class="bi bi-envelope flex-shrink-0"></i>
+                        <div>
+                            @if (dil == "tr")
+                            {
+                                <h3>
+                                    Mail
+                                </h3>
+                            }
+                            else if (dil == "en")
+                            {
+                                <h3>
+                                    E-Mail
+                                </h3>
+                            }
+                            else
+                            {
+                                <h3>
+                                    E-Mail
+
+                                </h3>
+
+                            }
+                            <p>info@grosshandeldirndl.de</p>
+                        </div>
+                    </div><!-- End Info Item -->
+
+                </div>
+
+                @if (dil == "tr")
+                {
+                    <div class="col-lg-8">
+                        <form action="/Home/Message" method="post" class="msg" data-aos="fade-up" data-aos-delay="200">
+                            <div class="row gy-4">
+
+                                <div class="col-md-12">
+                                    <input type="text" name="AdSoyad" class="form-control" placeholder="Adınız ve Soyadınız" maxlength="300" required="">
+                                </div>
+
+                                <div class="col-md-6 ">
+                                    <input type="email" class="form-control" name="Mail" placeholder="Mailiniz" maxlength="300" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="Telefon" placeholder="Telefon Numaranız" maxlength="50" required="">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="Konu" placeholder="Konu" maxlength="250" required="">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="Mesaj" rows="6" placeholder="Mesajınız" maxlength="2000" required=""></textarea>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="Cevap" placeholder="8 x 5 = ?" required="">
+                                </div>
+
+                                <div class="col-md-12 text-center">
+
+                                    <button type="submit">Mesaj Gönder</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div><!-- End Contact Form -->
+
+                }
+                else if (dil == "en")
+                {
+                    <div class="col-lg-8">
+                        <form action="/Home/Message" method="post" class="msg" data-aos="fade-up" data-aos-delay="200">
+                            <div class="row gy-4">
+
+                                <div class="col-md-12">
+                                    <input type="text" name="AdSoyad" class="form-control" placeholder="Your Name and Surname" maxlength="300" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="Mail" placeholder="Your Email" maxlength="300" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="Telefon" placeholder="Your Phone Number" maxlength="50" required="">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="Konu" placeholder="Subject" maxlength="250" required="">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="Mesaj" rows="6" placeholder="Your Message" maxlength="2000" required=""></textarea>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="Cevap" placeholder="8 x 5 = ?" required="">
+                                </div>
+
+                                <div class="col-md-12 text-center">
+                                    <button type="submit">Send Message</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div><!-- End Contact Form -->
+
+                }
+                else
+                {
+                    <div class="col-lg-8">
+                        <form action="/Home/Message" method="post" class="msg" data-aos="fade-up" data-aos-delay="200">
+                            <div class="row gy-4">
+
+                                <div class="col-md-12">
+                                    <input type="text" name="AdSoyad" class="form-control" placeholder="Ihr Name und Nachname" maxlength="300" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="email" class="form-control" name="Mail" placeholder="Ihre E-Mail-Adresse" maxlength="300" required="">
+                                </div>
+
+                                <div class="col-md-6">
+                                    <input type="text" class="form-control" name="Telefon" placeholder="Ihre Telefonnummer" maxlength="50" required="">
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="Konu" placeholder="Betreff" maxlength="250" required="">
+                                </div>
+
+                                <div class="col-md-12">
+                                    <textarea class="form-control" name="Mesaj" rows="6" placeholder="Ihre Nachricht" maxlength="2000" required=""></textarea>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="Cevap" placeholder="8 x 5 = ?" required="">
+                                </div>
+
+                                <div class="col-md-12 text-center">
+                                    <button type="submit">Nachricht senden</button>
+                                </div>
+
+                            </div>
+                        </form>
+                    </div><!-- End Contact Form -->
+
+
+                }
+
+
+
+            </div>
+
+        </div>
+
+    </section><!-- /Contact Section -->
+
+</main>

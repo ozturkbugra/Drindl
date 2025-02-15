@@ -1,0 +1,282 @@
+﻿﻿@if (Request.Cookies["Bilgi"] == null || Request.Cookies["Bilgi"]["AdminID"] == null)
+{
+    Response.Redirect("/Admin/Login");
+}
+
+@{
+    string kullaniciAdi = HttpUtility.UrlDecode(Request.Cookies["Bilgi"]["KullaniciAdi"]);
+ 
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>@ViewBag.Title - Admin</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="~/Content/admin/assets/img/favicon.png" rel="icon">
+    <link href="~/Content/admin/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.gstatic.com" rel="preconnect">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="~/Content/admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/admin/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="~/Content/admin/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="~/Content/admin/assets/vendor/quill/quill.snow.css" rel="stylesheet">
+    <link href="~/Content/admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+    <link href="~/Content/admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+    <link href="~/Content/admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="~/Content/admin/assets/css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- ======= Header ======= -->
+    <header id="header" class="header fixed-top d-flex align-items-center">
+
+        <div class="d-flex align-items-center justify-content-between">
+            <a href="/Admin" class="logo d-flex align-items-center">
+
+                <span class="d-none d-lg-block">Admin Panel</span>
+            </a>
+            <i class="bi bi-list toggle-sidebar-btn"></i>
+        </div><!-- End Logo -->
+
+
+
+        <nav class="header-nav ms-auto">
+            <ul class="d-flex align-items-center">
+
+                <li class="nav-item dropdown">
+
+                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+                        <i class="bi bi-chat-left-text"></i>
+                        @if (ViewBag.ToplamMesaj != 0)
+                        {
+                            <span class="badge bg-success badge-number">@ViewBag.ToplamMesaj</span>
+                        }
+
+                    </a><!-- End Messages Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
+                        <li class="dropdown-header">
+                            @ViewBag.ToplamMesaj Okunmamış mesajınız vardır
+                            <a href="/Admin/Mesajlar"><span class="badge rounded-pill bg-primary p-2 ms-2">Tümünü Gör</span></a>
+                        </li>
+                        @foreach (var item in ViewBag.Mesajlar)
+                        {
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+
+                            <li class="message-item">
+                                <a href="/Admin/MesajOku/@item.ID">
+                                    <img src="~/Content/admin/assets/img/pp.png" alt="" class="rounded-circle">
+                                    <div>
+                                        <h4>@item.AdSoyad</h4>
+                                        <h4>@item.Mail</h4>
+                                        <p>@item.Konu</p>
+                                        <p>@item.Tarih.ToString("dd/MM/yyyy HH:mm")</p>
+                                    </div>
+                                </a>
+                            </li>
+                        }
+
+
+
+                    </ul><!-- End Messages Dropdown Items -->
+
+                </li><!-- End Messages Nav -->
+
+                <li class="nav-item dropdown pe-3">
+
+                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                        <img src="~/Content/admin/assets/img/pp.png" alt="Profile" class="rounded-circle">
+                        <span class="d-none d-md-block dropdown-toggle ps-2">@kullaniciAdi</span>
+                    </a><!-- End Profile Iamge Icon -->
+
+                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                        <li class="dropdown-header">
+                            <h6>@kullaniciAdi</h6>
+                            <span>Admin</span>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/Admin/Password">
+                                <i class="bi bi-gear"></i>
+                                <span>Şifre Değiştir</span>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+
+
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center" href="/Admin/Logout">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Çıkış Yap</span>
+                            </a>
+                        </li>
+
+                    </ul><!-- End Profile Dropdown Items -->
+                </li><!-- End Profile Nav -->
+
+            </ul>
+        </nav><!-- End Icons Navigation -->
+
+    </header><!-- End Header -->
+    <!-- ======= Sidebar ======= -->
+    <aside id="sidebar" class="sidebar">
+
+        <ul class="sidebar-nav" id="sidebar-nav">
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/Admin">
+                    <i class="bi bi-house-door-fill"></i>
+                    <span>Ana Sayfa</span>
+                </a>
+            </li><!-- End Dashboard Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-menu-button-wide"></i><span>Site Hakkında</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/Admin/SabitBilgiler">
+                            <i class="bi bi-circle"></i><span>Sabit Bilgiler</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Hakkimizda">
+                            <i class="bi bi-circle"></i><span>Hakkımızda</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li><!-- End Components Nav -->
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" data-bs-target="#components-nav2" data-bs-toggle="collapse" href="#">
+                    <i class="bi bi-pencil-square"></i><span>Ürünlerimiz</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+                <ul id="components-nav2" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+                    <li>
+                        <a href="/Admin/Kategoriler">
+                            <i class="bi bi-circle"></i><span>Ürün Kategorileri</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Admin/Urunler">
+                            <i class="bi bi-circle"></i><span>Ürünler</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li><!-- End Components Nav -->
+
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/Admin/Mesajlar">
+                    <i class="bi bi-file-post-fill"></i>
+                    <span>Mesajlar</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/Admin/Yetkililer">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Yetkililer</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="/Home/Index" target="_blank">
+                    <i class="bi bi-browser-edge"></i>
+                    <span>Siteye Geri Dön</span>
+                </a>
+            </li><!-- End Profile Page Nav -->
+
+        </ul>
+
+    </aside><!-- End Sidebar-->
+
+    <main id="main" class="main">
+
+        @RenderBody()
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+    $(document).ready(function() {
+        @if (TempData["Hata"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: 'error',
+                    title: 'HATA!',
+                    text: '@Html.Raw(HttpUtility.JavaScriptStringEncode(TempData["Hata"].ToString()))'
+                });
+            </text>
+        }
+
+        @if (TempData["Basarili"] != null)
+        {
+            <text>
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Başarılı!',
+                    text: '@Html.Raw(HttpUtility.JavaScriptStringEncode(TempData["Basarili"].ToString()))'
+                });
+            </text>
+        }
+    });
+
+
+    </script>
+    <!-- ======= Footer ======= -->
+    <footer id="footer" class="footer">
+      
+        <div class="credits">
+
+            Designed by <a href="https://bugrasoft.com/">BugraSoft</a>
+        </div>
+    </footer><!-- End Footer -->
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="~/Content/admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+    <script src="~/Content/admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/admin/assets/vendor/chart.js/chart.umd.js"></script>
+    <script src="~/Content/admin/assets/vendor/echarts/echarts.min.js"></script>
+    <script src="~/Content/admin/assets/vendor/quill/quill.min.js"></script>
+    <script src="~/Content/admin/assets/vendor/simple-datatables/simple-datatables.js"></script>
+    <script src="~/Content/admin/assets/vendor/tinymce/tinymce.min.js"></script>
+    <script src="~/Content/admin/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="~/Content/admin/assets/js/main.js"></script>
+
+</body>
+
+</html>

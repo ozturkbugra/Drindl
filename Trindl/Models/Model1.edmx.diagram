@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e9a2bb01cd7242f49434afd8b4db95b5" Name="Diagram1">
+        <EntityTypeShape EntityType="DrindlModel.Adminler" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DrindlModel.Hakkimizda" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DrindlModel.Kategoriler" Width="1.5" PointX="0.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DrindlModel.Mesajlar" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="DrindlModel.Sabitler" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DrindlModel.Urunler" Width="1.5" PointX="4.75" PointY="5.75" />
+        <EntityTypeShape EntityType="DrindlModel.UrunlerView" Width="1.5" PointX="6.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
